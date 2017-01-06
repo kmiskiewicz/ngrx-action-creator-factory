@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
 
 /* Action Creator Factory
  * ======================
  * Creates typed action creators functions
- * const addTodo = ActionCreatorFactory.create<string>('ADD_TODO')
+ * const addTodo: ActionCreator<string> = ActionCreatorFactory.create<string>('ADD_TODO');
+ * 
  * 
  **/
-export class ActionCreator<T> {
-  constructor(
-    public type: string = 'NOT_SET',
-    public payload?: T
-  ) {}
+export interface ActionCreator<T> {
+  (payload?: T): Action;
 }
+
 @Injectable()
 export class ActionCreatorFactory {
   static create?<T>(type: string, defaultPayloadValue?: any) {
-    return (payload?: T): ActionCreator<any> => {
-      const _payload = payload || typeof payload !== 'undefined' ? payload : defaultPayloadValue;
-      return new ActionCreator<T>(type, _payload);
+    // ActionCreator
+    return (payload?: T): Action => {
+      // Action
+      return <Action>{type: type, payload: payload || defaultPayloadValue};
     };
   }
 
