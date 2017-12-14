@@ -15,6 +15,10 @@ export interface ActionCreator<T> {
 @Injectable()
 export class ActionCreatorFactory {
 
+  static create?<T>(type: string, defaultPayloadValue?: T) {
+    return (payload?: T): ActionCreator<T> => {
+      const _payload = payload || typeof payload !== 'undefined' ? payload : defaultPayloadValue;
+      return new ActionCreator<T>(type, _payload);
     };
   }
 
