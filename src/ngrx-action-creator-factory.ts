@@ -14,15 +14,11 @@ export interface ActionCreator<T> {
 
 @Injectable()
 export class ActionCreatorFactory {
-  static create?<T>(type: string, defaultPayloadValue?: any) {
-    // ActionCreator
-    return (payload?: T): Action => {
-      // Action
-      return <Action>{type: type, payload: payload || defaultPayloadValue};
+
     };
   }
 
-  create?<T>(type: string, defaultPayloadValue?: any) {
+  create?<T>(type: string, defaultPayloadValue?: T) {
     return ActionCreatorFactory.create<T>(type, defaultPayloadValue);
   }
 }
